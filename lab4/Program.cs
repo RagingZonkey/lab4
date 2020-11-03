@@ -110,7 +110,44 @@ namespace lab4
                         n = n.Next;
                     }
                 }
+                //Вложенный класс Owner и его инициализация
+                public class Owner
+                {
+                    private int _Id;
+                    private string _Name;
+                    private string _Organization;
 
+                    public int ID
+                    {
+                        get
+                        {
+                            return _Id;
+                        }
+
+                    }
+                    public string Name
+                    {
+                        get
+                        {
+                            return _Name;
+                        }
+
+                    }
+                    public string Organization
+                    {
+                        get
+                        {
+                            return _Organization;
+                        }
+
+                    }
+                    public Owner(int Id, string Name, string Organization)
+                    {
+                        _Id = Id;
+                        _Name = Name;
+                        _Organization = Organization;
+                    }
+                }
 
 
 
