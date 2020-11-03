@@ -149,7 +149,25 @@ namespace lab4
                     }
                 }
 
+                //Вложенный класс Date и его инициализация
 
+                public class Date
+                {
+                    private string dateOfCreation;
+
+                    public string DateOfCreation
+                    {
+                        get
+                        {
+                            return dateOfCreation;
+                        }
+                    }
+
+                    public Date(string _dateOfCreation)
+                    {
+                        dateOfCreation = _dateOfCreation;
+                    }
+                }
 
 
     }
