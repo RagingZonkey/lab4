@@ -81,6 +81,9 @@ namespace lab4
             return this.Head;
         }
 
+
+      
+
         //Добавление элемента в список
 
         public void Push(string elem)
@@ -202,8 +205,8 @@ namespace lab4
             Console.WriteLine($"\nStringCounter: {e2.StringCounter()}");
             e2.SumOfStrings();
             e1.FirstAndLastString();
-            e1.LongestAndShortestWord(); 
-
+            e1.LongestAndShortestWord();
+            e1.DeleteLastNode();
 
 
 
@@ -277,12 +280,21 @@ namespace lab4
             Console.WriteLine($"Самое длинное слово в списке: {maxword}");
             Console.WriteLine($"Самое короткое слово в списке: {minword}");
         }
-        
-        //internal static void DeleteLastNode(this List e)
-        //{
-            
 
+        internal static void DeleteLastNode(this List e)
+        {
+             Node head = e.GetHead();
+             
+             if (head.Element != null)
+            {
+             for (int i = 0; i< e.Size - 2; i++)
+                    {
+                        head = head.Next;
+                    }
 
-        //}
+             head.Next = null;
+            }
+            e.Output();
+        }
     }
 }
