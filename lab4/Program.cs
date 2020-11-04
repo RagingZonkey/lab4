@@ -199,28 +199,80 @@ namespace lab4
             Console.WriteLine("\nДобавление еще одного наименования в первый список: ");
             e1.Push("Dime");
             e1.Output();
-/*
-            bool bool_e1;
-            bool_e1 = System.Convert.ToBoolean(e1);
+            Console.WriteLine($"\nStringCounter: {e2.StringCounter()}");
+            e2.SumOfStrings();
+            e1.FirstAndLastString();
 
-            if (bool_e1)
-            {
-                Console.WriteLine("\nЭлементы списка e1 упорядочены.");
-            }
-            else
-                Console.WriteLine("\nЭлементы списка e1 НЕ упорядочены.");
+
+
+
             /*
-                        Console.WriteLine("\nДо использования перегруженного оператора --:");
-                        e2.Output();
-                        e2 = e2--;
-                        //a2.DeleteNode(0);
-                        Console.WriteLine("\nПосле использования перегруженного оператора --:");
-                        e2.Output();
-                        List.OwnerInfo();
-                        Console.WriteLine($"\nStringCounter: {e2.StringCounter()}");
-                        Console.WriteLine($"isNullElem: {e1.isNullElem()}");
-                        e2.SumOfStrings();
-                        e1.FirstAndLastString();*/
+                        bool bool_e1;
+                        bool_e1 = System.Convert.ToBoolean(e1);
+
+                        if (bool_e1)
+                        {
+                            Console.WriteLine("\nЭлементы списка e1 упорядочены.");
+                        }
+                        else
+                            Console.WriteLine("\nЭлементы списка e1 НЕ упорядочены.");
+                        /*
+                                    Console.WriteLine("\nДо использования перегруженного оператора --:");
+                                    e2.Output();
+                                    e2 = e2--;
+                                    //a2.DeleteNode(0);
+                                    Console.WriteLine("\nПосле использования перегруженного оператора --:");
+                                    e2.Output();
+                                    List.OwnerInfo();
+                                    Console.WriteLine($"\nStringCounter: {e2.StringCounter()}");
+                                    Console.WriteLine($"isNullElem: {e1.isNullElem()}");
+                                    e2.SumOfStrings();
+                                    e1.FirstAndLastString();*/
         }
+
+    }
+
+
+            public static class StatisticOperation
+            {
+                internal static void SumOfStrings(this List elem)
+                {
+                    string Sum = "";
+                    Node head = elem.GetHead();
+                    for (int i = 1; i < elem.Size; i++)
+                    {
+                        Sum += head.Element;
+                        head = head.Next;
+                    }
+                    Console.WriteLine($"Сумма элементов списка: {Sum}");
+                }
+
+                internal static void FirstAndLastString(this List artist)
+                {
+                    Node head = artist.GetHead();
+                    string first = head.Element;
+                    string last = first;
+                    int key;
+                    Node next = head.Next;
+                    while (next.Next != null)
+                    {
+                        key = String.Compare(first, next.Element);
+                        if (key > 0)
+                        {
+                            first = next.Element;
+                        }
+                        if (key < 0)
+                        {
+                            last = next.Element;
+                        }
+                        next = next.Next;
+                    }
+                    Console.WriteLine($"Самое первое слово в алфавитном порядке: {first}");
+                    Console.WriteLine($"Самое последнее слово в алфавитном порядке: {last}");
+                }
+                internal static int StringCounter(this List e)
+                {
+                    return e.Size;
+                }
     }
 }
