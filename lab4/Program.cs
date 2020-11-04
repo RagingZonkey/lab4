@@ -6,174 +6,174 @@ using System.Threading.Tasks;
 
 namespace lab4
 {
-   
-       
-            class Node
+
+
+    class Node
+    {
+        public string Element { get; set; }
+        public Node Next { get; set; }
+    }
+
+    class List
+    {
+        Node[] Elements;
+        public List()
         {
-            public string Element{ get; set; }
-            public Node Next { get; set; }
+            Elements = new Node[5];
+        }
+        public string this[int index]
+        {
+            get
+            {
+                return Elements[index].Element;
+            }
+            set
+            {
+                Elements[index].Element = value;
+            }
         }
 
-        class List
+
+        private Node Head { get; set; }
+        private Node Current { get; set; }
+
+        public int Size { get; set; }
+
+        //Удаление элемента списка
+        public void DeleteNode(int number)
         {
-            Node[] Elements;
-            public List()
+
+            if ((Head != null) && (number < Size) && (number >= 0))
             {
-                Elements = new Node[5];
-            }
-            public string this[int index]
-            {
-                get
+                Node n = Head;
+                Node prevNode = null;
+                if (number == 0)
                 {
-                    return Elements[index].Element;
+                    n = n.Next;
+                    Head = n;
                 }
-                set
+                if (number == Size)
                 {
-                    Elements[index].Element = value;
-                }
-            }
-
-
-            private Node Head { get; set; }
-            private Node Current { get; set; }
-            
-            public int Size { get; set; }
-
-            //Удаление элемента списка
-            public void DeleteNode(int number)
-            {
-
-                if ((Head != null) && (number < Size) && (number >= 0))
-                {
-                    Node n = Head;
-                    Node prevNode = null;
-                    if (number == 0)
+                    for (int i = 0; i < number - 2; i++)
                     {
                         n = n.Next;
-                        Head = n;
-                    }
-                    if (number == Size)
-                    {
-                        for (int i = 0; i < number - 2; i++)
-                        {
-                            n = n.Next;
-                        }
-
-                        n.Next = null;
-                    }
-                    else
-                    {
-                        for (int i = 0; i < number - 1; i++)
-                        {
-                            prevNode = n;
-                            n = n.Next;
-
-                        }
-                        n.Next = n.Next.Next;
                     }
 
-                }
-            }
-
-            //Получение значения "головного элемента" списка
-            public Node GetHead()
-            {
-                return this.Head;
-            }
-
-            //Добавление элемента в список
-
-            public void Push(string elem)
-            {
-                Size++;
-                var node = new Node() { Element = elem };
-                if (Head == null)
-                {
-                    Head = node;
+                    n.Next = null;
                 }
                 else
                 {
-                    Current.Next = node;
+                    for (int i = 0; i < number - 1; i++)
+                    {
+                        prevNode = n;
+                        n = n.Next;
+
+                    }
+                    n.Next = n.Next.Next;
                 }
-                Current = node;
+
+            }
+        }
+
+        //Получение значения "головного элемента" списка
+        public Node GetHead()
+        {
+            return this.Head;
+        }
+
+        //Добавление элемента в список
+
+        public void Push(string elem)
+        {
+            Size++;
+            var node = new Node() { Element = elem };
+            if (Head == null)
+            {
+                Head = node;
+            }
+            else
+            {
+                Current.Next = node;
+            }
+            Current = node;
+        }
+
+
+        //Вывод элементов списка в консоль
+
+        public void Output()
+        {
+            Node n = Head;
+            while (n != null)
+            {
+                Console.WriteLine($"Скейт-бренд: {n.Element}");
+                n = n.Next;
+            }
+        }
+        //Вложенный класс Owner и его инициализация
+        public class Owner
+        {
+            private int _Id;
+            private string _Name;
+            private string _Organization;
+
+            public int ID
+            {
+                get
+                {
+                    return _Id;
+                }
+
+            }
+            public string Name
+            {
+                get
+                {
+                    return _Name;
+                }
+
+            }
+            public string Organization
+            {
+                get
+                {
+                    return _Organization;
+                }
+
+            }
+            public Owner(int Id, string Name, string Organization)
+            {
+                _Id = Id;
+                _Name = Name;
+                _Organization = Organization;
+            }
+        }
+
+        //Вложенный класс Date и его инициализация
+
+        public class Date
+        {
+            private string dateOfCreation;
+
+            public string DateOfCreation
+            {
+                get
+                {
+                    return dateOfCreation;
+                }
             }
 
-
-                //Вывод элементов списка в консоль
-
-                public void Output()
-                {
-                    Node n = Head;
-                    while (n != null)
-                    {
-                        Console.WriteLine($"Скейт-бренд: {n.Element}");
-                        n = n.Next;
-                    }
-                }
-                //Вложенный класс Owner и его инициализация
-                public class Owner
-                {
-                    private int _Id;
-                    private string _Name;
-                    private string _Organization;
-
-                    public int ID
-                    {
-                        get
-                        {
-                            return _Id;
-                        }
-
-                    }
-                    public string Name
-                    {
-                        get
-                        {
-                            return _Name;
-                        }
-
-                    }
-                    public string Organization
-                    {
-                        get
-                        {
-                            return _Organization;
-                        }
-
-                    }
-                    public Owner(int Id, string Name, string Organization)
-                    {
-                        _Id = Id;
-                        _Name = Name;
-                        _Organization = Organization;
-                    }
-                }
-
-                //Вложенный класс Date и его инициализация
-
-                public class Date
-                {
-                    private string dateOfCreation;
-
-                    public string DateOfCreation
-                    {
-                        get
-                        {
-                            return dateOfCreation;
-                        }
-                    }
-
-                    public Date(string _dateOfCreation)
-                    {
-                        dateOfCreation = _dateOfCreation;
-                    }
-                }
+            public Date(string _dateOfCreation)
+            {
+                dateOfCreation = _dateOfCreation;
+            }
+        }
 
 
     }
 
-        class Program
-        {
+    class Program
+    {
         static void Main(string[] args)
         {
             List e1 = new List();
@@ -181,7 +181,7 @@ namespace lab4
             e1.Push("Carhartt");
             e1.Push("Pass~port");
             e1.Push("Blind");
-           
+
 
             List e2 = new List();
             e2.Push("Supreme");
@@ -189,7 +189,7 @@ namespace lab4
             e2.Push("Vans");
             e2.Push("Nike SB");
             e2.Push("Rassvet");
-          
+
 
 
             Console.WriteLine("\nПервый список:");
@@ -202,77 +202,87 @@ namespace lab4
             Console.WriteLine($"\nStringCounter: {e2.StringCounter()}");
             e2.SumOfStrings();
             e1.FirstAndLastString();
+            e1.LongestAndShortestWord(); 
 
 
 
 
-            /*
-                        bool bool_e1;
-                        bool_e1 = System.Convert.ToBoolean(e1);
-
-                        if (bool_e1)
-                        {
-                            Console.WriteLine("\nЭлементы списка e1 упорядочены.");
-                        }
-                        else
-                            Console.WriteLine("\nЭлементы списка e1 НЕ упорядочены.");
-                        /*
-                                    Console.WriteLine("\nДо использования перегруженного оператора --:");
-                                    e2.Output();
-                                    e2 = e2--;
-                                    //a2.DeleteNode(0);
-                                    Console.WriteLine("\nПосле использования перегруженного оператора --:");
-                                    e2.Output();
-                                    List.OwnerInfo();
-                                    Console.WriteLine($"\nStringCounter: {e2.StringCounter()}");
-                                    Console.WriteLine($"isNullElem: {e1.isNullElem()}");
-                                    e2.SumOfStrings();
-                                    e1.FirstAndLastString();*/
         }
 
     }
 
 
-            public static class StatisticOperation
+    public static class StatisticOperation
+    {
+        internal static void SumOfStrings(this List elem)
+        {
+            string Sum = "";
+            Node head = elem.GetHead();
+            for (int i = 1; i < elem.Size; i++)
             {
-                internal static void SumOfStrings(this List elem)
-                {
-                    string Sum = "";
-                    Node head = elem.GetHead();
-                    for (int i = 1; i < elem.Size; i++)
-                    {
-                        Sum += head.Element;
-                        head = head.Next;
-                    }
-                    Console.WriteLine($"Сумма элементов списка: {Sum}");
-                }
+                Sum += head.Element;
+                head = head.Next;
+            }
+            Console.WriteLine($"Сумма элементов списка: {Sum}");
+        }
 
-                internal static void FirstAndLastString(this List artist)
+        internal static void FirstAndLastString(this List elem)
+        {
+            Node head = elem.GetHead();
+            string first = head.Element;
+            string last = first;
+            int key;
+            Node next = head.Next;
+            while (next.Next != null)
+            {
+                key = String.Compare(first, next.Element);
+                if (key > 0)
                 {
-                    Node head = artist.GetHead();
-                    string first = head.Element;
-                    string last = first;
-                    int key;
-                    Node next = head.Next;
-                    while (next.Next != null)
-                    {
-                        key = String.Compare(first, next.Element);
-                        if (key > 0)
-                        {
-                            first = next.Element;
-                        }
-                        if (key < 0)
-                        {
-                            last = next.Element;
-                        }
-                        next = next.Next;
-                    }
-                    Console.WriteLine($"Самое первое слово в алфавитном порядке: {first}");
-                    Console.WriteLine($"Самое последнее слово в алфавитном порядке: {last}");
+                    first = next.Element;
                 }
-                internal static int StringCounter(this List e)
+                if (key < 0)
                 {
-                    return e.Size;
+                    last = next.Element;
                 }
+                next = next.Next;
+            }
+            Console.WriteLine($"Самое первое слово в алфавитном порядке: {first}");
+            Console.WriteLine($"Самое последнее слово в алфавитном порядке: {last}");
+        }
+        internal static int StringCounter(this List e)
+        {
+            return e.Size;
+        }
+
+        internal static void LongestAndShortestWord(this List elem)
+        {
+            Node head = elem.GetHead();
+            string maxword = head.Element;
+            string minword = head.Element;
+            Node next = head.Next;
+            while (next.Next != null)
+            {
+                if (next.Element.Length > maxword.Length)
+                {
+                    maxword = next.Element;
+
+                }
+                if (next.Element.Length < minword.Length)
+                {
+                    minword = next.Element;
+
+                }
+                next = next.Next;
+            }
+            Console.WriteLine($"Самое длинное слово в списке: {maxword}");
+            Console.WriteLine($"Самое короткое слово в списке: {minword}");
+        }
+        
+        //internal static void DeleteLastNode(this List e)
+        //{
+            
+
+
+        //}
     }
 }
