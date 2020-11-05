@@ -38,6 +38,18 @@ namespace lab4
         private Node Current { get; set; }
 
         public int Size { get; set; }
+        public static Owner owner;
+        public static Date date;
+
+        static List()
+        {
+            owner = new Owner(18, "Yegoe", "EcoFlea Inc.");
+            date = new Date(DateTime.Now.ToString());
+        }
+        public static void OwnerInfo()
+        {
+            Console.WriteLine($"Владелец: {owner.Name}\nИдентификатор владельца: {owner.ID}\nКомпания владельца: {owner.Organization}\nДата создания: {date.DateOfCreation}");
+        } 
 
         //Удаление элемента списка
         public void DeleteNode(int number)
@@ -82,14 +94,34 @@ namespace lab4
         }
 
 
-      
+
 
         //Добавление элемента в список
 
-        public void Push(string elem)
+        public void Push(string elem /*, int pos*/)
         {
             Size++;
             var node = new Node() { Element = elem };
+            //Node temp = new Node();
+            //if (pos == 0)
+            //{
+            //    node.Next = Head;
+            //    Head = node;
+            //}
+            //if (pos == Size)
+            //{
+            //    Current.Next = node;
+            //}
+            //else
+            //{
+            //    for(int i = 0; i < pos - 1; i++)
+            //    {
+            //        node = node.Next;
+            //    }
+            //    temp = node.Next;
+
+               
+            //}
             if (Head == null)
             {
                 Head = node;
@@ -112,6 +144,50 @@ namespace lab4
                 Console.WriteLine($"Скейт-бренд: {n.Element}");
                 n = n.Next;
             }
+        }
+
+        //Перегрузка операторов
+
+
+        public static List operator >>(List list, int num)
+        {
+            
+            Console.WriteLine("Введите номер позиции, с которой желаете удалить элемент: ");
+            num = Convert.ToInt32(Console.ReadLine());
+            list.DeleteNode(num);
+            return list;
+        }
+   
+
+        public static List operator +(List list, string item)
+        {
+            int num;
+            Console.WriteLine("Введите номер позиции, в которую желаете добавить элемент: ");
+            num = Convert.ToInt32(Console.ReadLine());
+            list.Push(item);
+            return list;
+        }
+
+        public static bool operator !=(List e1, List e2)
+        {
+            Node n1 = e1.Head;
+            Node n2 = e2.Head;
+            if (n1.Element != n2.Element)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public static bool operator ==(List e1, List e2)
+        {
+            Node n1 = e1.Head;
+            Node n2 = e2.Head;
+            if (n1.Element != n2.Element)
+            {
+                return false;
+            }
+            return true;
         }
         //Вложенный класс Owner и его инициализация
         public class Owner
@@ -207,8 +283,9 @@ namespace lab4
             e1.FirstAndLastString();
             e1.LongestAndShortestWord();
             e1.DeleteLastNode();
-
-
+            e2 = e2 + "OKTYABR";
+            e2.Output();
+            List.OwnerInfo();
 
         }
 
